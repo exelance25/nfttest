@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3001](http://localhost:3001) (port 3000 may be used by other apps).
 
 ## Environment
 
@@ -68,7 +68,24 @@ Deploy sonrasi `NEXT_PUBLIC_BASE_NFT_ADDRESS` otomatik `.env.local`'e yazilir. V
 
 ## Vercel
 
-`next.config.ts` uses `output: "standalone"`. Set all `NEXT_PUBLIC_*` vars in the Vercel project dashboard.
+1. GitHub repo: `exelance25/my-wallet-app` — production branch **`master`** (AKLN kodu burada).
+2. Vercel → Project → **Settings → Environment Variables** (Production):
+
+| Variable | Value |
+|----------|--------|
+| `NEXT_PUBLIC_SITE_URL` | `https://my-wallet-app.vercel.app` (veya Vercel domain'in) |
+| `NEXT_PUBLIC_WC_PROJECT_ID` | [cloud.reown.com](https://cloud.reown.com) project ID |
+| `NEXT_PUBLIC_MONAD_NFT_ADDRESS` | `0x3bfaC3A468E09403856b837A26Ddd7a9AC4C99aF` |
+| `NEXT_PUBLIC_BASE_NFT_ADDRESS` | `0x235B68913b2d86892B51d9c02Dc7C9dF8d643431` |
+| `NEXT_PUBLIC_MONAD_TESTNET_RPC` | `https://testnet-rpc.monad.xyz` |
+| `NEXT_PUBLIC_BASE_SEPOLIA_RPC` | `https://base-sepolia-rpc.publicnode.com` |
+
+3. Reown allowlist'e Vercel domain'ini ekle (production wallet modal).
+4. **Redeploy** after env changes.
+
+`npx plugins add vercel/vercel-plugin` gerekmez — bu Cursor eklentisi; Vercel deploy GitHub bağlantısı ile olur.
+
+**Not:** Kontratlar `localhost` metadata URI ile deploy edildi. Canlı sitede wallet'ta doğru NFT görseli için `NEXT_PUBLIC_SITE_URL` canlı URL iken `npm run deploy` ile yeniden deploy gerekir.
 
 ## Chains
 
