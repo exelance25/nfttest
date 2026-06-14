@@ -4,14 +4,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "node scripts/deploy.mjs",
-    "deploy:base": "node scripts/deploy.mjs --base-only",
-    "deploy:monad": "node scripts/deploy.mjs --monad-only",
-    "fund:base": "node scripts/fund-base.mjs"
+    "deploy": "node --use-system-ca scripts/deploy.mjs",
+    "deploy:base": "node --use-system-ca scripts/deploy.mjs --base-only",
+    "deploy:monad": "node --use-system-ca scripts/deploy.mjs --monad-only",
+    "fund:base": "node --use-system-ca scripts/fund-base.mjs"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.2",
