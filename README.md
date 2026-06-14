@@ -74,14 +74,17 @@ Deploy sonrasi `NEXT_PUBLIC_BASE_NFT_ADDRESS` otomatik `.env.local`'e yazilir. V
 | Variable | Value |
 |----------|--------|
 | `NEXT_PUBLIC_SITE_URL` | `https://my-wallet-app.vercel.app` (veya Vercel domain'in) |
-| `NEXT_PUBLIC_WC_PROJECT_ID` | [cloud.reown.com](https://cloud.reown.com) project ID |
-| `NEXT_PUBLIC_MONAD_NFT_ADDRESS` | `0x3bfaC3A468E09403856b837A26Ddd7a9AC4C99aF` |
-| `NEXT_PUBLIC_BASE_NFT_ADDRESS` | `0x235B68913b2d86892B51d9c02Dc7C9dF8d643431` |
+| `NEXT_PUBLIC_WC_PROJECT_ID` | Reown project ID (public — set in Vercel dashboard) |
+| `NEXT_PUBLIC_MONAD_NFT_ADDRESS` | `0xc79Eb92d332E7E719C579405b20fa2908D177b1B` |
+| `NEXT_PUBLIC_BASE_NFT_ADDRESS` | `0x0eB83A50981bDcB26C4b471ae4eCe2f87448A127` |
 | `NEXT_PUBLIC_MONAD_TESTNET_RPC` | `https://testnet-rpc.monad.xyz` |
 | `NEXT_PUBLIC_BASE_SEPOLIA_RPC` | `https://base-sepolia-rpc.publicnode.com` |
 
-3. Reown allowlist'e Vercel domain'ini ekle (production wallet modal).
-4. **Redeploy** after env changes.
+3. Reown → [cloud.reown.com](https://cloud.reown.com) → Project → **Allowed Domains**:
+   - `https://my-wallet-app.vercel.app`
+   - `http://localhost:3001`
+4. Copy all vars from `vercel.env.example` into Vercel env settings.
+5. **Redeploy** after env changes.
 
 `npx plugins add vercel/vercel-plugin` gerekmez — bu Cursor eklentisi; Vercel deploy GitHub bağlantısı ile olur.
 
