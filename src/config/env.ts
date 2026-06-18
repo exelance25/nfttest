@@ -10,7 +10,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_BASE_SEPOLIA_RPC: z
     .string()
     .url()
-    .default("https://base-sepolia-rpc.publicnode.com"),
+    .default("https://sepolia.base.org"),
   NEXT_PUBLIC_MONAD_NFT_ADDRESS: z.string().optional(),
   NEXT_PUBLIC_BASE_NFT_ADDRESS: z.string().optional(),
 });

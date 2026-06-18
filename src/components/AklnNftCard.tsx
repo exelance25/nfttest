@@ -37,6 +37,7 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
     collection,
     contractAddress,
     isConnected,
+    onCorrectChain,
     mintPriceFormatted,
     totalMinted,
     maxSupply,
@@ -77,7 +78,10 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
   useEffect(() => {
     if (!isConnected || pendingMint !== collectionId || unavailable || busy) return;
     onPendingMint(null);
-    void runMint();
+    const timer = window.setTimeout(() => {
+      void runMint();
+    }, 300);
+    return () => window.clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- pending mint once after connect
   }, [isConnected, pendingMint, collectionId, unavailable, busy]);
 
@@ -121,12 +125,16 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
           {soldOut
             ? "Tukendi"
             : busy
-              ? "Cuzdan onayi bekleniyor..."
+              ? isSwitching || (isConnected && !onCorrectChain)
+                ? `${collection.chainName} agina geciliyor...`
+                : "Cuzdan onayi bekleniyor..."
               : !contractAddress
                 ? collectionId === "base"
                   ? "Base kontrati henuz deploy edilmedi"
                   : "Kontrat adresi eksik"
-                : "NFT'ye tikla — cuzdan acilir"}
+                : isConnected && !onCorrectChain
+                  ? `Tikla — ${collection.chainName} agina gec + mint`
+                  : "NFT'ye tikla — cuzdan sec"}
         </p>
         {statusMessage && contractAddress ? (
           <p className="text-center text-xs text-emerald-300">{statusMessage}</p>

@@ -1,11 +1,10 @@
-import { connectorsForWallets, getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
-  coinbaseWallet,
   metaMaskWallet,
+  phantomWallet,
   rabbyWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { http } from "wagmi";
-import { createConfig } from "wagmi";
+import { createConfig, http } from "wagmi";
 import { baseSepolia } from "viem/chains";
 import { defineChain } from "viem";
 import { env } from "@/config/env";
@@ -35,28 +34,18 @@ const transports = {
   [baseSepolia.id]: http(env.NEXT_PUBLIC_BASE_SEPOLIA_RPC),
 } as const;
 
-/** Localhost: Reown allowlist gerekmez — tarayici cuzdani (MetaMask vb.) */
-const useInjectedWalletsOnly = process.env.NODE_ENV === "development";
-
-export const wagmiConfig = useInjectedWalletsOnly
-  ? createConfig({
-      chains: aklnChains,
-      connectors: connectorsForWallets(
-        [
-          {
-            groupName: "Recommended",
-            wallets: [metaMaskWallet, rabbyWallet, coinbaseWallet],
-          },
-        ],
-        { appName: APP_NAME, projectId },
-      ),
-      transports,
-      ssr: true,
-    })
-  : getDefaultConfig({
-      appName: APP_NAME,
-      projectId,
-      chains: aklnChains,
-      transports,
-      ssr: true,
-    });
+/** MetaMask, Rabby, Phantom — her ortamda acik liste (secim yapilabilsin). */
+export const wagmiConfig = createConfig({
+  chains: aklnChains,
+  connectors: connectorsForWallets(
+    [
+      {
+        groupName: "Cuzdan",
+        wallets: [metaMaskWallet, rabbyWallet, phantomWallet],
+      },
+    ],
+    { appName: APP_NAME, projectId },
+  ),
+  transports,
+  ssr: true,
+});

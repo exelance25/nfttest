@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   useAccount,
   useReadContract,
-  useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
@@ -14,12 +13,30 @@ import {
   NFT_MINT_PRICE,
   type NftCollectionId,
 } from "@/config/collections";
+import { getChainId } from "@wagmi/core";
+import { ensureChain } from "@/lib/ensure-chain";
+import { wagmiConfig } from "@/lib/wagmi";
 import { testNetworkNftAbi } from "@/lib/test-nft-abi";
+
+function formatMintError(err: unknown, chainName: string, nativeSymbol: string): string {
+  const message = err instanceof Error ? err.message : String(err);
+  const lower = message.toLowerCase();
+
+  if (lower.includes("user rejected") || lower.includes("user denied")) {
+    return "Islem cuzdanda iptal edildi.";
+  }
+  if (lower.includes("insufficient funds") || lower.includes("insufficient balance")) {
+    return `Yetersiz ${nativeSymbol}. ${chainName} test token alin (faucet).`;
+  }
+  if (lower.includes("chain") || lower.includes("network")) {
+    return `${chainName} agina gecin ve tekrar deneyin.`;
+  }
+  return message || "Mint basarisiz.";
+}
 
 export function useAklnMint(collectionId: NftCollectionId) {
   const collection = NFT_COLLECTIONS[collectionId];
   const { address, chainId, isConnected } = useAccount();
-  const { switchChainAsync, isPending: isSwitching } = useSwitchChain();
 
   const contractAddress = collection.contractAddress;
   const onCorrectChain = chainId === collection.chainId;
@@ -49,16 +66,13 @@ export function useAklnMint(collectionId: NftCollectionId) {
   });
 
   const { writeContractAsync, isPending: isWriting, data: txHash, reset } = useWriteContract();
-  const receipt = useWaitForTransactionReceipt({ hash: txHash });
+  const receipt = useWaitForTransactionReceipt({ hash: txHash, chainId: collection.chainId });
+  const [isSwitching, setIsSwitching] = useState(false);
 
   const mintPrice = priceQuery.data ?? NFT_MINT_PRICE;
   const totalMinted = supplyQuery.data ?? 0n;
   const maxSupply = maxSupplyQuery.data ?? 200n;
   const soldOut = totalMinted >= maxSupply;
-
-  const switchToCollectionChain = useCallback(async () => {
-    await switchChainAsync({ chainId: collection.chainId });
-  }, [collection.chainId, switchChainAsync]);
 
   const mint = useCallback(async () => {
     if (!contractAddress) {
@@ -67,27 +81,35 @@ export function useAklnMint(collectionId: NftCollectionId) {
     if (!isConnected || !address) {
       throw new Error("Once cuzdan baglayin.");
     }
-    if (!onCorrectChain) {
-      await switchToCollectionChain();
-    }
 
-    reset();
-    await writeContractAsync({
-      address: contractAddress,
-      abi: testNetworkNftAbi,
-      functionName: "mint",
-      chainId: collection.chainId,
-      value: mintPrice,
-    });
+    try {
+      if (getChainId(wagmiConfig) !== collection.chainId) {
+        setIsSwitching(true);
+      }
+      await ensureChain(collection.chainId, collection.chainName);
+      reset();
+      await writeContractAsync({
+        address: contractAddress,
+        abi: testNetworkNftAbi,
+        functionName: "mint",
+        chainId: collection.chainId,
+        account: address,
+        value: mintPrice,
+      });
+    } catch (err) {
+      throw new Error(formatMintError(err, collection.chainName, collection.nativeSymbol));
+    } finally {
+      setIsSwitching(false);
+    }
   }, [
     address,
     collection.chainId,
+    collection.chainName,
+    collection.nativeSymbol,
     contractAddress,
     isConnected,
     mintPrice,
-    onCorrectChain,
     reset,
-    switchToCollectionChain,
     writeContractAsync,
   ]);
 
@@ -97,9 +119,18 @@ export function useAklnMint(collectionId: NftCollectionId) {
     if (receipt.isSuccess) return "Mint basarili!";
     if (receipt.isError) return "Islem basarisiz — explorer'dan kontrol edin.";
     if (receipt.isLoading || isWriting) return "Cuzdan onayi bekleniyor...";
-    if (isSwitching) return "Ag degistiriliyor...";
+    if (isSwitching) return `${collection.chainName} agina geciliyor...`;
     return null;
-  }, [contractAddress, isSwitching, isWriting, receipt.isError, receipt.isLoading, receipt.isSuccess, soldOut]);
+  }, [
+    collection.chainName,
+    contractAddress,
+    isSwitching,
+    isWriting,
+    receipt.isError,
+    receipt.isLoading,
+    receipt.isSuccess,
+    soldOut,
+  ]);
 
   return {
     collection,
@@ -116,7 +147,6 @@ export function useAklnMint(collectionId: NftCollectionId) {
     isConfirming: receipt.isLoading,
     txHash,
     statusMessage,
-    switchToCollectionChain,
     mint,
     refetchSupply: supplyQuery.refetch,
   };
