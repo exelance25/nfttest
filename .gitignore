@@ -4,6 +4,11 @@ out
 .env
 .env.local
 .env*.local
+.env.production
+.env.production.local
+push-output.txt
+*.pem
+*.key
 contracts/out
 contracts/cache
 contracts/broadcast

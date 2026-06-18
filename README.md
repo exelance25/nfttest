@@ -68,7 +68,7 @@ Deploy sonrasi `NEXT_PUBLIC_BASE_NFT_ADDRESS` otomatik `.env.local`'e yazilir. V
 
 ## Vercel
 
-1. GitHub repo: `exelance25/my-wallet-app` — production branch **`master`** (AKLN kodu burada).
+1. GitHub repo: `exelance25/nfttest` — branch **`main`**.
 2. Vercel → Project → **Settings → Environment Variables** (Production):
 
 | Variable | Value |
