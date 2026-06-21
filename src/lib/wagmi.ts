@@ -1,15 +1,11 @@
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
-import {
-  metaMaskWallet,
-  phantomWallet,
-  rabbyWallet,
-} from "@rainbow-me/rainbowkit/wallets";
+import { metaMaskWallet, rabbyWallet } from "@rainbow-me/rainbowkit/wallets";
 import { createConfig, http } from "wagmi";
 import { baseSepolia } from "viem/chains";
 import { defineChain } from "viem";
 import { env } from "@/config/env";
 
-export const APP_NAME = "AKLN";
+export const APP_NAME = "NFT";
 
 export const monadTestnet = defineChain({
   id: 10143,
@@ -24,7 +20,7 @@ export const monadTestnet = defineChain({
   testnet: true,
 });
 
-export const aklnChains = [monadTestnet, baseSepolia] as const;
+export const nftChains = [monadTestnet, baseSepolia] as const;
 
 const projectId =
   env.NEXT_PUBLIC_WC_PROJECT_ID.trim() || "00000000000000000000000000000000";
@@ -34,14 +30,14 @@ const transports = {
   [baseSepolia.id]: http(env.NEXT_PUBLIC_BASE_SEPOLIA_RPC),
 } as const;
 
-/** MetaMask, Rabby, Phantom — her ortamda acik liste (secim yapilabilsin). */
+/** MetaMask ve Rabby — kullanici secim yapabilsin */
 export const wagmiConfig = createConfig({
-  chains: aklnChains,
+  chains: nftChains,
   connectors: connectorsForWallets(
     [
       {
         groupName: "Cuzdan",
-        wallets: [metaMaskWallet, rabbyWallet, phantomWallet],
+        wallets: [metaMaskWallet, rabbyWallet],
       },
     ],
     { appName: APP_NAME, projectId },
@@ -49,3 +45,6 @@ export const wagmiConfig = createConfig({
   transports,
   ssr: true,
 });
+
+/** @deprecated use nftChains */
+export const aklnChains = nftChains;

@@ -39,6 +39,7 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
     isConnected,
     onCorrectChain,
     mintPriceFormatted,
+    ethBalanceFormatted,
     totalMinted,
     maxSupply,
     soldOut,
@@ -112,9 +113,16 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
         <div className="flex items-center justify-between text-sm">
           <span className="text-white/60">Fiyat</span>
           <span className="font-mono font-medium text-white">
-            {mintPriceFormatted} {collection.nativeSymbol}
+            {mintPriceFormatted} {collection.paymentSymbol}
           </span>
         </div>
+        <p className="text-xs text-white/50">{collection.paymentNote}</p>
+        {ethBalanceFormatted !== null && isConnected ? (
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-white/60">Cuzdan ETH (WETH)</span>
+            <span className="font-mono text-violet-200">{ethBalanceFormatted} ETH</span>
+          </div>
+        ) : null}
         <div className="flex items-center justify-between text-sm">
           <span className="text-white/60">Stok</span>
           <span className="text-emerald-300">
@@ -134,7 +142,9 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
                   : "Kontrat adresi eksik"
                 : isConnected && !onCorrectChain
                   ? `Tikla — ${collection.chainName} agina gec + mint`
-                  : "NFT'ye tikla — cuzdan sec"}
+                  : collectionId === "monad"
+                    ? "Tikla — 0.0001 ETH ile mint (MON degil)"
+                    : "NFT'ye tikla — 0.0001 ETH ile mint"}
         </p>
         {statusMessage && contractAddress ? (
           <p className="text-center text-xs text-emerald-300">{statusMessage}</p>

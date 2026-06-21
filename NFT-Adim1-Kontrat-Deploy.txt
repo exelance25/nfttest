@@ -1,0 +1,10 @@
+(Bu dosyanin kopyasi OneDrive Masaustunde de var.)
+Dosya: C:\Users\omerr\OneDrive\Desktop\NFT-Adim1-Kontrat-Deploy.txt
+
+HIZLI BASLANGIC — 2 KOMUT:
+
+1) cd C:\Users\omerr\.cursor\projects\empty-window\akln-nft
+
+2) & "C:\Users\omerr\.cursor\projects\empty-window\akln-nft\deploy-contracts.cmd"
+
+Detayli yol haritasi icin masaustundeki NFT-Adim1-Kontrat-Deploy.txt dosyasini ac.

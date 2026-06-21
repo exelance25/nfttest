@@ -17,13 +17,15 @@ export default function HomePage() {
               accountStatus="address"
               chainStatus="icon"
               showBalance={false}
+              label="Cuzdan Bagla"
             />
           </div>
-          <p className="mt-6 text-sm uppercase tracking-[0.35em] text-violet-400">AKLN</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Test NFT</h1>
-          <p className="mx-auto mt-4 max-w-lg text-white/60">
-            Cuzdan bagla (MetaMask, Rabby veya Phantom) — NFT&apos;ye tiklayin, ag otomatik degisir,
-            mint onaylayin.
+          <h1 className="mt-8 text-4xl font-bold tracking-tight sm:text-5xl">NFT</h1>
+          <p className="mx-auto mt-4 max-w-xl text-white/60">
+            Her iki agda NFT fiyati{" "}
+            <span className="text-white/90">0.0001 ETH</span>. Monad&apos;da odeme{" "}
+            <span className="text-white/90">MON degil ETH</span> ile yapilir (WETH). Gas
+            ucreti icin cuzdanda az MON kalir. MetaMask veya Rabby ile baglanin.
           </p>
         </header>
 

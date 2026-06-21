@@ -11,6 +11,7 @@
     "deploy": "node --use-system-ca scripts/deploy.mjs",
     "deploy:base": "node --use-system-ca scripts/deploy.mjs --base-only",
     "deploy:monad": "node --use-system-ca scripts/deploy.mjs --monad-only",
+    "check:balances": "node --use-system-ca scripts/check-balances.mjs",
     "fund:base": "node --use-system-ca scripts/fund-base.mjs"
   },
   "dependencies": {

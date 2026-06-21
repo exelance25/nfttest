@@ -4,10 +4,8 @@ pragma solidity 0.8.24;
 import {Script, console2} from "forge-std/Script.sol";
 import {TestNetworkNFT} from "../src/TestNetworkNFT.sol";
 
-/// @title DeployTestNFT
-/// @notice Foundry deploy script — run once per network (Monad Testnet, Base Sepolia).
 /// @dev Required env: DEPLOYER_PRIVATE_KEY, NFT_NAME, NFT_SYMBOL, NFT_METADATA_URI,
-///      NFT_MAX_SUPPLY, NFT_MINT_PRICE_WEI, NFT_TREASURY
+///      NFT_MAX_SUPPLY, NFT_MINT_PRICE_WEI, NFT_TREASURY, NFT_PAYMENT_TOKEN (0x0 = native ETH)
 contract DeployTestNFT is Script {
     function run() external {
         uint256 deployerKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
@@ -17,6 +15,7 @@ contract DeployTestNFT is Script {
         uint256 maxSupply = vm.envUint("NFT_MAX_SUPPLY");
         uint256 mintPriceWei = vm.envUint("NFT_MINT_PRICE_WEI");
         address treasury = vm.envAddress("NFT_TREASURY");
+        address paymentToken = vm.envAddress("NFT_PAYMENT_TOKEN");
 
         vm.startBroadcast(deployerKey);
 
@@ -26,13 +25,15 @@ contract DeployTestNFT is Script {
             metadataUri,
             maxSupply,
             mintPriceWei,
-            treasury
+            treasury,
+            paymentToken
         );
 
         vm.stopBroadcast();
 
         console2.log("TestNetworkNFT deployed at:", address(nft));
         console2.log("Treasury (mint payments):", nft.treasury());
+        console2.log("Payment token (0=native ETH):", nft.paymentToken());
         console2.log("Max supply:", nft.maxSupply());
         console2.log("Mint price (wei):", nft.mintPrice());
     }

@@ -3,9 +3,9 @@ import { Providers } from "@/providers/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AKLN",
-  description: "AKLN — cross-chain test NFT mint",
-  applicationName: "AKLN",
+  title: "NFT",
+  description: "NFT — Monad ve Base test aglarinda ETH ile mint",
+  applicationName: "NFT",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
