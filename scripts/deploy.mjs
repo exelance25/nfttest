@@ -232,8 +232,10 @@ const sharedEnv = {
   NFT_TREASURY: treasury,
 };
 
-const monadWeth =
-  env.NEXT_PUBLIC_MONAD_WETH_ADDRESS || "0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242";
+const monadEth =
+  env.NEXT_PUBLIC_MONAD_ETH_ADDRESS ||
+  env.NEXT_PUBLIC_MONAD_WETH_ADDRESS ||
+  "0x05a816Ef3330924F0A70b040A656E80D3D03363C";
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 const skipMonad = process.argv.includes("--base-only");
 const skipBase = process.argv.includes("--monad-only");
@@ -249,7 +251,7 @@ if (!skipMonad) {
     symbol: "NFT-M",
     metadataUri: env.NFT_MONAD_METADATA_URI || `${siteUrl}/api/nft/metadata/monad`,
     envKey: "NEXT_PUBLIC_MONAD_NFT_ADDRESS",
-    paymentToken: monadWeth,
+    paymentToken: monadEth,
     sharedEnv,
   });
 }

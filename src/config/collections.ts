@@ -11,9 +11,9 @@ export const NFT_MAX_SUPPLY = 200n;
 
 export const NFT_TREASURY = "0x1491baEd4db010D8F8B54cED442aF3326ed2c77a" as const;
 
-/** WETH on Monad Testnet — bridged ETH used for NFT payment */
-export const MONAD_WETH_ADDRESS =
-  "0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242" as const;
+/** Bridged ETH on Monad Testnet — cuzdanda gorunen ETH bu token */
+export const MONAD_ETH_ADDRESS =
+  "0x05a816Ef3330924F0A70b040A656E80D3D03363C" as const;
 
 export type NftCollectionId = "monad" | "base";
 
@@ -31,7 +31,7 @@ export type NftCollectionConfig = {
   /** Short note shown on the card */
   paymentNote: string;
   paymentKind: PaymentKind;
-  /** ERC20 token for mint (Monad WETH); null = native ETH */
+  /** ERC20 ETH token on Monad; null = native ETH (Base) */
   paymentToken: Address | null;
   explorerBaseUrl: string;
   contractAddress: Address | null;
@@ -53,9 +53,9 @@ export const NFT_COLLECTIONS: Record<NftCollectionId, NftCollectionConfig> = {
     chainId: monadTestnet.id,
     chainName: "Monad Testnet",
     paymentSymbol: "ETH",
-    paymentNote: "MON degil — ETH ile odeme (WETH)",
+    paymentNote: "MON degil — ETH ile odeme",
     paymentKind: "erc20",
-    paymentToken: parseAddress(env.NEXT_PUBLIC_MONAD_WETH_ADDRESS) ?? MONAD_WETH_ADDRESS,
+    paymentToken: parseAddress(env.NEXT_PUBLIC_MONAD_ETH_ADDRESS) ?? MONAD_ETH_ADDRESS,
     explorerBaseUrl: "https://testnet.monadvision.com",
     contractAddress: parseAddress(env.NEXT_PUBLIC_MONAD_NFT_ADDRESS),
     metadataApiPath: "/api/nft/metadata/monad",

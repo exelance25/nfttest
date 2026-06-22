@@ -13,6 +13,8 @@ const envSchema = z.object({
     .default("https://sepolia.base.org"),
   NEXT_PUBLIC_MONAD_NFT_ADDRESS: z.string().optional(),
   NEXT_PUBLIC_BASE_NFT_ADDRESS: z.string().optional(),
+  NEXT_PUBLIC_MONAD_ETH_ADDRESS: z.string().optional(),
+  /** @deprecated use NEXT_PUBLIC_MONAD_ETH_ADDRESS */
   NEXT_PUBLIC_MONAD_WETH_ADDRESS: z.string().optional(),
 });
 
@@ -25,6 +27,9 @@ const parsed = envSchema.safeParse({
   NEXT_PUBLIC_BASE_SEPOLIA_RPC: process.env.NEXT_PUBLIC_BASE_SEPOLIA_RPC,
   NEXT_PUBLIC_MONAD_NFT_ADDRESS: process.env.NEXT_PUBLIC_MONAD_NFT_ADDRESS,
   NEXT_PUBLIC_BASE_NFT_ADDRESS: process.env.NEXT_PUBLIC_BASE_NFT_ADDRESS,
+  NEXT_PUBLIC_MONAD_ETH_ADDRESS:
+    process.env.NEXT_PUBLIC_MONAD_ETH_ADDRESS ??
+    process.env.NEXT_PUBLIC_MONAD_WETH_ADDRESS,
   NEXT_PUBLIC_MONAD_WETH_ADDRESS: process.env.NEXT_PUBLIC_MONAD_WETH_ADDRESS,
 });
 

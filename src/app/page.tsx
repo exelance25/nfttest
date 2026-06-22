@@ -24,7 +24,7 @@ export default function HomePage() {
           <p className="mx-auto mt-4 max-w-xl text-white/60">
             Her iki agda NFT fiyati{" "}
             <span className="text-white/90">0.0001 ETH</span>. Monad&apos;da odeme{" "}
-            <span className="text-white/90">MON degil ETH</span> ile yapilir (WETH). Gas
+            <span className="text-white/90">MON degil ETH</span> ile yapilir. Gas
             ucreti icin cuzdanda az MON kalir. MetaMask veya Rabby ile baglanin.
           </p>
         </header>

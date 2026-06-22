@@ -16,3 +16,6 @@ contracts/lib
 
 .vercel
 .env*
+
+.vercel
+.env*

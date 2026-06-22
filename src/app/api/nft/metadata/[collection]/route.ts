@@ -8,7 +8,7 @@ const COLLECTION_META: Record<
 > = {
   monad: {
     name: "NFT Monad",
-    description: "NFT — Monad Testnet. Odeme: 0.0001 ETH (WETH).",
+    description: "NFT — Monad Testnet. Odeme: 0.0001 ETH.",
     imagePath: "/nft/monad/image.svg",
     externalUrl: "https://testnet.monadvision.com",
     network: "Monad Testnet",

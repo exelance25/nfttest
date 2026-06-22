@@ -7,12 +7,12 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /// @title TestNetworkNFT
-/// @notice ERC-721 — mint payment in native ETH or ERC20 (e.g. WETH on Monad).
+/// @notice ERC-721 — mint payment in native ETH or ERC20 (bridged ETH on Monad).
 contract TestNetworkNFT is ERC721, Ownable, ReentrancyGuard {
     uint256 public immutable maxSupply;
     uint256 public immutable mintPrice;
     address payable public immutable treasury;
-    /// @dev address(0) = native ETH; otherwise ERC20 (WETH on Monad testnet).
+    /// @dev address(0) = native ETH; otherwise ERC20 (bridged ETH on Monad testnet).
     address public immutable paymentToken;
     string private _fixedTokenURI;
     uint256 private _nextTokenId;

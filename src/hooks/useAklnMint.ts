@@ -32,7 +32,7 @@ function formatMintError(err: unknown, chainName: string, paymentSymbol: string)
     lower.includes("transfer amount exceeds balance")
   ) {
     if (paymentSymbol === "ETH" && chainName.includes("Monad")) {
-      return "Yetersiz ETH. Monad mint MON ile degil ETH (WETH) ile odeme yapar — cuzdaninizda ETH/WETH olmali.";
+      return "Yetersiz ETH. Monad mint MON ile degil ETH ile odeme yapar — cuzdaninizda ETH olmali.";
     }
     return `Yetersiz ${paymentSymbol}. ${chainName} uzerinde ${paymentSymbol} gerekli.`;
   }

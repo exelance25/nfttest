@@ -119,7 +119,7 @@ export function AklnNftCard({ collectionId, pendingMint, onPendingMint }: AklnNf
         <p className="text-xs text-white/50">{collection.paymentNote}</p>
         {ethBalanceFormatted !== null && isConnected ? (
           <div className="flex items-center justify-between text-sm">
-            <span className="text-white/60">Cuzdan ETH (WETH)</span>
+            <span className="text-white/60">Cuzdan ETH</span>
             <span className="font-mono text-violet-200">{ethBalanceFormatted} ETH</span>
           </div>
         ) : null}

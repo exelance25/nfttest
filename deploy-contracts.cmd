@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
 echo === NFT kontrat deploy (ETH odemeli) ===
-echo Monad: NFT fiyati ETH (WETH) — MON ile satilmaz
+echo Monad: NFT fiyati ETH — MON ile satilmaz
 echo Base: NFT fiyati native ETH
 echo DEPLOYER_PRIVATE_KEY .env.local icinde olmali.
 echo.

@@ -30,7 +30,7 @@ if errorlevel 1 (
 
   if errorlevel 1 exit /b 1
 
-  git -c user.name=exelance25 -c user.email=exelance25@users.noreply.github.com commit -m "fix: Vercel build — eslint config and ignore lint during builds"
+  git -c user.name=exelance25 -c user.email=exelance25@users.noreply.github.com commit -m "fix: Monad NFT odemesi dogru ETH token ile (WETH degil)"
 
 ) else (
 

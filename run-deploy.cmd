@@ -72,7 +72,7 @@ if errorlevel 2 (
 
 echo.
 
-echo 2/3 Monad kontrat (NFT fiyati ETH/WETH — MON degil)...
+echo 2/3 Monad kontrat (NFT fiyati ETH — MON degil)...
 
 call npm.cmd run deploy:monad >> "%LOG%" 2>&1
 
