@@ -7,8 +7,10 @@ import { env } from "@/config/env";
 
 export const APP_NAME = "NFT";
 
+export const MONAD_TESTNET_CHAIN_ID = 10143 as const;
+
 export const monadTestnet = defineChain({
-  id: 10143,
+  id: MONAD_TESTNET_CHAIN_ID,
   name: "Monad Testnet",
   nativeCurrency: { name: "Monad", symbol: "MON", decimals: 18 },
   rpcUrls: {
@@ -21,6 +23,8 @@ export const monadTestnet = defineChain({
 });
 
 export const nftChains = [monadTestnet, baseSepolia] as const;
+
+export type NftChainId = typeof MONAD_TESTNET_CHAIN_ID | typeof baseSepolia.id;
 
 const projectId =
   env.NEXT_PUBLIC_WC_PROJECT_ID.trim() || "00000000000000000000000000000000";

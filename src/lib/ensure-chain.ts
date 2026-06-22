@@ -1,11 +1,11 @@
 import { getChainId, switchChain } from "@wagmi/core";
-import { wagmiConfig } from "@/lib/wagmi";
+import { type NftChainId, wagmiConfig } from "@/lib/wagmi";
 
 const CHAIN_SWITCH_MS = 100;
 const CHAIN_SWITCH_ATTEMPTS = 30;
 
 /** Cuzdani hedef aga gecir; mint oncesi Base / Monad icin gerekli. */
-export async function ensureChain(chainId: number, chainName: string) {
+export async function ensureChain(chainId: NftChainId, chainName: string) {
   if (getChainId(wagmiConfig) === chainId) return;
 
   await switchChain(wagmiConfig, { chainId });

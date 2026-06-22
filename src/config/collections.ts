@@ -2,7 +2,7 @@ import type { Address } from "viem";
 import { parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 import { env } from "@/config/env";
-import { monadTestnet } from "@/lib/wagmi";
+import { monadTestnet, type NftChainId } from "@/lib/wagmi";
 
 /** 0.0001 ETH per mint on both networks */
 export const NFT_MINT_PRICE = parseEther("0.0001");
@@ -24,7 +24,7 @@ export type NftCollectionConfig = {
   label: string;
   name: string;
   symbol: string;
-  chainId: number;
+  chainId: NftChainId;
   chainName: string;
   /** User-facing payment symbol — always ETH (never MON on Monad) */
   paymentSymbol: string;
