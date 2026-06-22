@@ -30,7 +30,7 @@ if errorlevel 1 (
 
   if errorlevel 1 exit /b 1
 
-  git -c user.name=exelance25 -c user.email=exelance25@users.noreply.github.com commit -m "fix: Monad NFT odemesi dogru ETH token ile (WETH degil)"
+  git -c user.name=exelance25 -c user.email=exelance25@users.noreply.github.com commit -m "fix: yeni Monad NFT kontrat adresi ve dogru ETH token"
 
 ) else (
 

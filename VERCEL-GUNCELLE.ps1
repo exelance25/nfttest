@@ -47,21 +47,18 @@ $envVars = @{
   "NEXT_PUBLIC_MONAD_TESTNET_RPC" = "https://testnet-rpc.monad.xyz"
   "NEXT_PUBLIC_BASE_SEPOLIA_RPC" = "https://sepolia.base.org"
   "NEXT_PUBLIC_MONAD_ETH_ADDRESS" = "0x05a816Ef3330924F0A70b040A656E80D3D03363C"
-  "NEXT_PUBLIC_MONAD_NFT_ADDRESS" = "0xd7846b1d5fd3d47ab8db58e7cc388c358df3554d"
+  "NEXT_PUBLIC_MONAD_NFT_ADDRESS" = "0x0e589888301cef33c0e38dc8a75e6c851433ab56"
   "NEXT_PUBLIC_BASE_NFT_ADDRESS" = "0xd7846b1d5fd3d47ab8db58e7cc388c358df3554d"
 }
 
 foreach ($envName in $envVars.Keys) {
-  foreach ($target in @("production", "preview", "development")) {
-    vercel env rm $envName $target -y 2>$null
-  }
+  vercel env rm $envName production -y 2>$null
 }
 
 foreach ($entry in $envVars.GetEnumerator()) {
   $value = $entry.Value
-  foreach ($target in @("production", "preview", "development")) {
-    $value | vercel env add $entry.Key $target
-  }
+  $value | vercel env add $entry.Key production --force 2>$null
+  if ($LASTEXITCODE -ne 0) { $value | vercel env add $entry.Key production }
   Write-Host "  $($entry.Key) = $value"
 }
 
